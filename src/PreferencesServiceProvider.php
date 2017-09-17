@@ -40,5 +40,11 @@ class PreferencesServiceProvider extends ServiceProvider
         $this->app->singleton('preferences', function () {
             return new Service;
         });
+
+        $this->app->bind('preferences.repository', function () {
+            return new Repository(new Preference, new OwnersPreference);
+        });
+
+        $this->app->register('EnterCode\Auth\Providers\EventServiceProvider');
     }
 }

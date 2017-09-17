@@ -59,7 +59,7 @@ class Service
      * @param mixed $default
      * @return mixed
      */
-    public function getValue(Model $owner, $key, $default = null)
+    public function getWithValue(Model $owner, $key, $default = null)
     {
         return $this->getOwners($owner)->get($key, $default);
     }
