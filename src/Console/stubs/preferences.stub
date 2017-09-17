@@ -1,0 +1,52 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePreferencesTables extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('{{preferencesTable}}', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('key')->unique();
+            $table->string('owner_type')->after('key')->index();
+            $table->text('default_value')->nullable();
+            $table->string('type', 32);
+            $table->text('config')->nullable();
+        });
+
+        Schema::create('{{preferenceValuesTable}}', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('owner_id')->index();
+            $table->string('owner_type')->index();
+            $table->unsignedInteger('preference_id');
+            $table->text('value');
+            $table->timestamps();
+
+            $table->unique(['owner_id', 'owner_type', 'preference_id'], 'uq_preference_owner');
+
+            $table->foreign('preference_id', 'fk_preference_value_preference')
+                ->references('id')
+                ->on('{{preferencesTable}}')
+                ->onDelete('CASCADE');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('{{preferenceValuesTable}}');
+        Schema::dropIfExists('{{preferencesTable}}');
+    }
+}

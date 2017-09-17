@@ -1,0 +1,38 @@
+{
+    "name": "felipeedev/laravel-preferences",
+    "description": "Laravel's preferences utility - a DB based system setting.",
+    "authors": [
+        {
+            "name": "Filip Koblański",
+            "email": "filip.koblanski@gmail.com"
+        }
+    ],
+    "license": "MIT",
+
+    "require": {
+        "php": "^7.0.0",
+        "felipeedev/laravel-utilities": "^0.6"
+    },
+    "autoload": {
+        "classmap": [
+            "tests"
+        ],
+        "psr-4": {
+            "FelipeeDev\\Preferences\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "FelipeeDev\\Preferences\\PreferencesServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev"
+}
