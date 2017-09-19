@@ -16,7 +16,7 @@ class CreatePreferencesTables extends Migration
         Schema::create('{{preferencesTable}}', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key')->unique();
-            $table->string('owner_type')->after('key')->index();
+            $table->string('owner_type')->index();
             $table->text('default_value')->nullable();
             $table->string('type', 32);
             $table->text('config')->nullable();

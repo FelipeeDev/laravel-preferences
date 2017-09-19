@@ -55,8 +55,8 @@ class PreferenceTablesCommand extends Command
     {
         $this->replaceMigration(
             $this->createBaseMigration(),
-            config('preferences.table'),
-            config('preferences.values.table')
+            config('preferences.tables.preferences'),
+            config('preferences.tables.preference_values')
         );
 
         $this->info('Migration created successfully!');
