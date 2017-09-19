@@ -50,7 +50,7 @@ class Service
             return $preferenceValue;
         }
 
-        return $this->valueService->store($owner, $preference, $data);
+        return $this->valueService->create($owner, $preference, $data);
     }
 
     /**

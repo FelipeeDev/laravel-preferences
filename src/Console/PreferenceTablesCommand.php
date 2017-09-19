@@ -51,10 +51,8 @@ class PreferenceTablesCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
-
-
         $this->replaceMigration(
             $this->createBaseMigration(),
             config('preferences.table'),
