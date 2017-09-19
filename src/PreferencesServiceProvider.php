@@ -34,7 +34,7 @@ class PreferencesServiceProvider extends ServiceProvider
     public function register()
     {
         if (!\File::exists(base_path() . '/bootstrap/cache/config.php')) {
-            $this->mergeConfigFrom(__DIR__ . '/../config/preferences.php', 'preferences');
+            $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'preferences');
         }
 
         $this->app->singleton('preferences', function () {
