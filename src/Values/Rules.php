@@ -7,7 +7,7 @@ class Rules implements RulesInterface
     public function getRules(string $type = null): array
     {
         return [
-            'auth_preference_id' => 'required'
+            'preference_id' => 'required'
         ];
     }
 }

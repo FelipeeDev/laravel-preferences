@@ -32,5 +32,4 @@ class Preference extends Model
     {
         return config('preferences.table', 'preferences');
     }
-
 }

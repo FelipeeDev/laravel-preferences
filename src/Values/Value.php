@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property int owner_id
  * @property string owner_type
- * @property int auth_preference_id
+ * @property int preference_id
  * @property mixed value
  * @property \Carbon\Carbon created_at
  * @property \Carbon\Carbon updated_at
@@ -22,9 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Value extends Model implements Valueable
 {
-    const TABLE = 'auth_preference_values';
-
-    protected $fillable = ['auth_preference_id', 'owner_id', 'owner_type', 'value'];
+    protected $fillable = ['preference_id', 'owner_id', 'owner_type', 'value'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
@@ -51,8 +49,8 @@ class Value extends Model implements Valueable
             $owner = $owner->getKey();
         }
 
-        $query->where('owner_id', $owner);
-        $query->where('owner_type', $ownerType);
+        $query->where(sprintf('%s.owner_id', $this->getTable()), $owner);
+        $query->where(sprintf('%s.owner_type', $thise->getTable()), $ownerType);
     }
 
     /**

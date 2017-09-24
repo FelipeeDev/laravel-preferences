@@ -1,5 +1,6 @@
 <?php  namespace FelipeeDev\Preferences;
 
+use FelipeeDev\Preferences\Values\Repository as ValueRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,18 +22,14 @@ class OwnersPreference extends Preference
             $owner = $owner->getKey();
         }
 
-        $query->where(sprintf('%s.owner_id', $this->getValueTable()), $owner);
-        $query->where(sprintf('%s.owner_type', $this->getValueTable()), $ownerType);
-        $query->where(sprintf('%s.owner_type', $this->table), $ownerType);
+        $valuesTableName = app(ValueRepository::class)->getModel()->getTable();
+        $query->where(sprintf('%s.owner_id', $valuesTableName), $owner);
+        $query->where(sprintf('%s.owner_type', $valuesTableName), $ownerType);
+        $query->where(sprintf('%s.owner_type', $this->getTable()), $ownerType);
     }
 
     public function newCollection(array $models = [])
     {
         return new OwnersCollection($models);
-    }
-
-    private function getValueTable(): string
-    {
-        return config('preferences.values.table', 'preference_values');
     }
 }

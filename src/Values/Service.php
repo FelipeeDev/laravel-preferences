@@ -25,7 +25,7 @@ class Service
     {
         $input['owner_id'] = $owner->getKey();
         $input['owner_type'] = $owner->getMorphClass();
-        $input['auth_preference_id'] = $preference->getKey();
+        $input['preference_id'] = $preference->getKey();
 
         $value = $this->crudCreate($input, $options);
         $value->setRelation('owner', $owner);

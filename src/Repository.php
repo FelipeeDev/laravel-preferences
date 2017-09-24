@@ -2,6 +2,7 @@
 
 use FelipeeDev\Utilities\RepositoryInterface;
 use FelipeeDev\Utilities\RepositoryTrait;
+use FelipeeDev\Preferences\Values\Repository as ValueRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,14 +55,17 @@ class Repository implements RepositoryInterface
      */
     public function ownersQuery(): Builder
     {
+        $preferencesTableName = $this->getModel()->getTable();
+        $valuesTableName = app(ValueRepository::class)->getModel()->getTable();
+
         return $this->ownerModel->newQuery()
             ->select(
-                'auth_preferences.id',
-                sprintf('%s.id as value_id', Values\Value::TABLE),
+                $preferencesTableName . '.id',
+                sprintf('%s.id as value_id', $valuesTableName),
                 'key',
                 \DB::raw(sprintf(
                     'CASE WHEN %1$s.id IS NULL THEN default_value ELSE %1$s.value END AS value',
-                    Values\Value::TABLE
+                    $valuesTableName
                 )),
                 'default_value',
                 'type',
@@ -69,7 +73,7 @@ class Repository implements RepositoryInterface
                 'created_at',
                 'updated_at'
             )
-            ->leftJoin(Values\Value::TABLE, 'auth_preference_id', '=', 'auth_preferences.id');
+            ->leftJoin($valuesTableName, 'preference_id', '=', $this->getModel()->getTable() . '.id');
     }
 
     public function getOwners(Model $owner): OwnersCollection
