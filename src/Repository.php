@@ -1,15 +1,12 @@
 <?php namespace FelipeeDev\Preferences;
 
-use FelipeeDev\Utilities\RepositoryInterface;
-use FelipeeDev\Utilities\RepositoryTrait;
+use FelipeeDev\Utilities\Eloquent\ModelRepository;
 use FelipeeDev\Preferences\Values\Repository as ValueRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class Repository implements RepositoryInterface
+class Repository extends ModelRepository
 {
-    use RepositoryTrait;
-
     /**
      * @var Preference
      */
