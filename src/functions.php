@@ -11,6 +11,6 @@ if (! function_exists('preference')) {
      */
     function preference(\Illuminate\Database\Eloquent\Model $owner, string $key, $default = null)
     {
-        return app('preferences')->getValue($owner, $key, $default);
+        return app('preferences')->getWithValue($owner, $key, $default);
     }
 }
